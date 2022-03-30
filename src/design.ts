@@ -44,21 +44,6 @@ import { cssResetRules, cssNormalizeRules } from "./css";
  **/
 //  OR -----
 
-// let body: any = document.querySelector("body");
-// let content: any = document.getElementById("content");
-
-// window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function (e) {
-//   const colorScheme = e.matches ? "dark" : "light";
-
-//   if (colorScheme === "dark") {
-//     body.style.backgroundColor = "#1a1a1a";
-//     content.setAttribute("class", "dark");
-//   } else {
-//     body.style.backgroundColor = "#f5f5f5";
-//     content.setAttribute("class", "light");
-//   }
-// });
-
 const mockSheet = () => {
     const cssRules: any = [];
     return {
@@ -94,6 +79,14 @@ if (typeof window !== "undefined") {
 
 export const design = (classes: string, config: any) => {
     const cssRules: any = sheet.cssRules || sheet.rules;
+
+    console.log(cssRules);
+
+    // cssRules.forEach((rule: any) => {
+    //     console.log(rule);
+
+    //     // sheet?.deleteRule(rule, cssRules.length);
+    // });
 
     if (config?.cssreset === true) {
         cssResetRules.forEach((rule: string) => {
@@ -357,32 +350,32 @@ export const design = (classes: string, config: any) => {
             const duplicateClass = sheetCopy.filter((e: any) => e.selectorText === refinedClass);
             const duplicateDebug = sheetCopy.filter((e: any) => e.selectorText === ".blueprint :not(path):not(g)");
 
-            if (
-                (identifier !== "blueprint" && !duplicateClass.length) ||
-                (identifier === "blueprint" && !duplicateDebug.length)
-            ) {
-                const formattedRule = xs
-                    ? `@media (max-width: 576px) { ${rule} }`
-                    : sm
-                    ? `@media (min-width: 576px) { ${rule} }`
-                    : md
-                    ? `@media (min-width: 768px) { ${rule} }`
-                    : lg
-                    ? `@media (min-width: 992px) { ${rule} }`
-                    : xl
-                    ? `@media (min-width: 1200px) { ${rule} }`
-                    : xxl
-                    ? `@media (min-width: 1400px) { ${rule} }`
-                    : rule;
+            // if (duplicateClass.length) {
+            //     sheet?.deleteRule(classObject.index);
+            //     classObject.index = classObject.index - 1;
+            // }
+            const formattedRule = xs
+                ? `@media (max-width: 576px) { ${rule} }`
+                : sm
+                ? `@media (min-width: 576px) { ${rule} }`
+                : md
+                ? `@media (min-width: 768px) { ${rule} }`
+                : lg
+                ? `@media (min-width: 992px) { ${rule} }`
+                : xl
+                ? `@media (min-width: 1200px) { ${rule} }`
+                : xxl
+                ? `@media (min-width: 1400px) { ${rule} }`
+                : rule;
 
-                // console.log(formattedRule);
-                // const formattedRule = sm
-                //   ? `@media only screen and (max-width: 600px) { ${rule} }`
-                //   : md
-                //   ? `@media only screen and (min-width: 768px) { ${rule} }`
-                //   : rule;
-                sheet?.insertRule(formattedRule, classObject.index);
-            }
+            // console.log(formattedRule);
+            // const formattedRule = sm
+            //   ? `@media only screen and (max-width: 600px) { ${rule} }`
+            //   : md
+            //   ? `@media only screen and (min-width: 768px) { ${rule} }`
+            //   : rule;
+            sheet?.insertRule(formattedRule, classObject.index);
+            // }
 
             classList += (classList ? " " : "") + classObject.identifier;
         } else {

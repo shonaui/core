@@ -13,7 +13,7 @@
             } */
         </style>
     </head>
-    <body class="">
+    <body class="bg-bg">
         <div class="group xs:bg-orange sm:bg-green md:!bg-pink lg:bg-brown">
             <h1 class="page-header xs:bg-green hover:tc-red tc-secondary cursor-pointer m-5% bg-primary">
                 Hello World
@@ -25,16 +25,21 @@
         >
             Hello
         </div>
+        <button
+            onclick="shonaui.toggleDarkTheme();"
+            class="m-50 bs-solid bw-1 bc-green tc-text bg-primary p-5 cursor-pointer"
+        >
+            Switch Theme
+        </button>
         <script>
             shonaui.init({
-                mode: "default", // ssr, spa, default
-                darkMode: "manual", // or 'auto'
+                darkMode: true,
                 classPrefix: "su-", // add a custom prefix to all of generated utility classes.
                 vendorPrefixing: true, // vendor prefixing
                 showErrors: true,
                 defaultUnit: "px", // default css unit if not soecified. e.g "width-50" => resolves to "width: 50px"
-                cssreset: true, // css reset
-                normalize: false, // css normalization
+                cssreset: false, // css reset
+                normalize: true, // css normalization
                 important: false, // set all utility classes as '!important' -  this is useful when dealing with existing CSS that has high specificity selectors.
                 // important: '#app',
                 // important: '.header',
@@ -44,16 +49,20 @@
                 font: "system", // or custom set - system - font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
                 colors: {
                     light: {
+                        bg: "white",
                         primary: "#1C1E4D",
                         secondary: "#FFC629",
                         graytext: "#959CAF",
                         orange: "#FD9E31",
+                        text: "pink",
                     },
                     dark: {
-                        primary: "#4D2525",
+                        bg: "#252525",
+                        primary: "#000",
                         secondary: "#86CBED",
                         graytext: "#959CAF",
                         orange: "#FD9E31",
+                        text: "#fff",
                     },
                 },
                 sizes: {
@@ -102,6 +111,8 @@
                     // // => @media (min-width: 1280px) { ... }
                 },
             });
+
+            console.log("shonaui.isDarkMode", shonaui.isDarkTheme);
         </script>
     </body>
 </html>

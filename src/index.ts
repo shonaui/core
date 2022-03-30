@@ -1,6 +1,11 @@
 import { design } from "./design";
 import { insertViewPortMetaTag, viewPortMetaTagExists } from "./helpers";
 // import { haha } from "./window";
+import { darkMode } from "./utils/dark-mode";
+
+export { toggleDarkTheme, isDarkTheme } from "./utils/dark-mode";
+
+darkMode();
 
 import { getWindow, getDocument } from "./ssr";
 
@@ -74,13 +79,20 @@ export const shonaui = {
 };
 
 if (typeof window !== "undefined" || typeof self !== "undefined" || typeof document !== "undefined") {
+    // initial call
+    initializeLibrary(globalConfig);
+
     window.addEventListener("DOMContentLoaded", (event: any) => {
         const targetNode: any = document.body;
         const config2: any = { childList: true, subtree: true, attributes: true };
 
         const callback = function (mutationsList: any, observer: any) {
             for (let mutation of mutationsList) {
-                if (mutation.type === "attributes" && mutation.attributeName === "class") {
+                if (
+                    mutation.type === "attributes" &&
+                    (mutation.attributeName === "class" || mutation.attributeName === "shonaui-theme")
+                ) {
+                    console.log("targetNode");
                     initializeLibrary(globalConfig);
                 }
             }
@@ -88,8 +100,6 @@ if (typeof window !== "undefined" || typeof self !== "undefined" || typeof docum
 
         const observer = new MutationObserver(callback);
         observer.observe(targetNode, config2);
-
-        initializeLibrary(globalConfig);
     });
 }
 
