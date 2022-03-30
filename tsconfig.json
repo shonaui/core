@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist/",
+        "sourceMap": false,
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "strict": true,
+        "strictFunctionTypes": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "alwaysStrict": true,
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "skipLibCheck": true,
+        "allowJs": true,
+        "moduleResolution": "node",
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "declaration": true,
+        "rootDir": "."
+    },
+    "include": ["dist/*"],
+    "exclude": ["node_modules", "tests", "**/*.test.ts", "**/*.spec.ts"],
+    "compileOnSave": true
+}

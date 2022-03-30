@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Demo</title>
+        <script src="dist/shonaui.js"></script>
+        <style>
+            /* @media (min-width: 0px) {
+                h1 {
+                    background-color: maroon;
+                }
+            } */
+        </style>
+    </head>
+    <body class="">
+        <div class="group xs:bg-orange sm:bg-green md:!bg-pink lg:bg-brown">
+            <h1 class="page-header xs:bg-green hover:tc-red tc-secondary cursor-pointer m-5% bg-primary">
+                Hello World
+            </h1>
+            <p class="description m-5% group-hover:tc-red ts-40 underline">para</p>
+        </div>
+        <div
+            class="flex justify-center items-center m-20 p-10 bw-5 bc-green bs-solid hover:[bg-primary tc-yellow bold bc-primary cursor-pointer]"
+        >
+            Hello
+        </div>
+        <script>
+            shonaui.init({
+                mode: "default", // ssr, spa, default
+                darkMode: "manual", // or 'auto'
+                classPrefix: "su-", // add a custom prefix to all of generated utility classes.
+                vendorPrefixing: true, // vendor prefixing
+                showErrors: true,
+                defaultUnit: "px", // default css unit if not soecified. e.g "width-50" => resolves to "width: 50px"
+                cssreset: true, // css reset
+                normalize: false, // css normalization
+                important: false, // set all utility classes as '!important' -  this is useful when dealing with existing CSS that has high specificity selectors.
+                // important: '#app',
+                // important: '.header',
+                // important: ['#loginBTN','.footer',...etc]
+                separator: ":", // pseudo classes and elements seperator
+                // ...
+                font: "system", // or custom set - system - font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+                colors: {
+                    light: {
+                        primary: "#1C1E4D",
+                        secondary: "#FFC629",
+                        graytext: "#959CAF",
+                        orange: "#FD9E31",
+                    },
+                    dark: {
+                        primary: "#4D2525",
+                        secondary: "#86CBED",
+                        graytext: "#959CAF",
+                        orange: "#FD9E31",
+                    },
+                },
+                sizes: {
+                    s: "8px",
+                    m: "16px",
+                    l: "14px",
+                    xl: "40px",
+                },
+                assets: {
+                    "hero-pattern": "url('/img/hero-pattern.svg')",
+                    "footer-texture": "url('/img/footer-texture.png')",
+                },
+                shortcuts: {
+                    // Quickly combine utilities to create reusable components.
+                    "yellow-box": "p-10 radius-10 bg-yellow w-full",
+                },
+                utils: {
+                    size: ["width", "height"],
+                },
+                screens: {
+                    xs: "<600px", //  >=,<,>,=, <=
+                    // => @media (max-width: 600px)
+
+                    sm: "640px",
+                    // => @media (min-width: 640px) { ... }
+
+                    md: "768px",
+                    // => @media (min-width: 768px) { ... }
+
+                    lg: "1024px",
+                    // => @media (min-width: 1024px) { ... }
+
+                    xl: "1280px",
+                    // => @media (min-width: 1280px) { ... }
+
+                    // mobile: "<640px",
+                    // // => @media (min-width: 640px) { ... }
+
+                    // tablet: "640px",
+                    // // => @media (min-width: 640px) { ... }
+
+                    // laptop: "1024px",
+                    // // => @media (min-width: 1024px) { ... }
+
+                    // desktop: "1280px",
+                    // // => @media (min-width: 1280px) { ... }
+                },
+            });
+        </script>
+    </body>
+</html>
