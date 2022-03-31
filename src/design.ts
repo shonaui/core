@@ -80,7 +80,7 @@ if (typeof window !== "undefined") {
 export const design = (classes: string, config: any) => {
     const cssRules: any = sheet.cssRules || sheet.rules;
 
-    console.log(cssRules);
+    // console.log(cssRules);
 
     // cssRules.forEach((rule: any) => {
     //     console.log(rule);

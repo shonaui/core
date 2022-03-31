@@ -1,11 +1,9 @@
 import { design } from "./design";
 import { insertViewPortMetaTag, viewPortMetaTagExists } from "./helpers";
 // import { haha } from "./window";
-import { darkMode } from "./utils/dark-mode";
+import { darkModeHandler } from "./utils/dark-mode";
 
-export { toggleDarkTheme, isDarkTheme } from "./utils/dark-mode";
-
-darkMode();
+export { toggleDarkTheme, setTheme } from "./utils/dark-mode";
 
 import { getWindow, getDocument } from "./ssr";
 
@@ -15,6 +13,8 @@ const document = getDocument();
 // TODO: create an interface for the 'config' object
 const initializeLibrary = (config: any) => {
     if (!viewPortMetaTagExists()) insertViewPortMetaTag();
+
+    darkModeHandler(config);
 
     let classList: any = [];
     document.querySelectorAll("*[class]").forEach((e) => {
@@ -79,6 +79,8 @@ export const shonaui = {
 };
 
 if (typeof window !== "undefined" || typeof self !== "undefined" || typeof document !== "undefined") {
+    console.log("Hello World");
+
     // initial call
     initializeLibrary(globalConfig);
 
@@ -88,11 +90,9 @@ if (typeof window !== "undefined" || typeof self !== "undefined" || typeof docum
 
         const callback = function (mutationsList: any, observer: any) {
             for (let mutation of mutationsList) {
-                if (
-                    mutation.type === "attributes" &&
-                    (mutation.attributeName === "class" || mutation.attributeName === "shonaui-theme")
-                ) {
-                    console.log("targetNode");
+                if (mutation.type === "attributes" && mutation.attributeName === "class") {
+                    console.log("Something changed....");
+
                     initializeLibrary(globalConfig);
                 }
             }
@@ -103,26 +103,7 @@ if (typeof window !== "undefined" || typeof self !== "undefined" || typeof docum
     });
 }
 
-// for npm install
-// const shonaui = (config: any) => {
-//     initializeLibrary(config);
-// };
-
-// export default shonaui;
-
-// var prefix = (function () {
-//     let styles: any = window.getComputedStyle(document.documentElement, null);
-//     let pre: any | null = Array.prototype.slice
-//         .call(styles)
-//         .join("")
-//         .match(/-(moz|webkit|ms)-/)[1];
-//     // ||
-//     // (styles.OLink === "" && ["", "o"]))[1];
-//     let dom: any = "WebKit|Moz|MS|O".match(new RegExp("(" + pre + ")", "i"))[1];
-//     return {
-//         dom: dom,
-//         lowercase: pre,
-//         css: "-" + pre + "-",
-//         js: pre[0].toUpperCase() + pre.substr(1),
-//     };
-// })();
+// you can set global styles akak custom styles like dark mode smooth transition
+const globalStyles = {};
+// transition smoothly from one theme to another instead of instantly jumping from light to dark theme.
+// "* { transition: background-color 0.6s ease, color 1s ease;}",

@@ -1,11 +1,9 @@
-import { isDarkTheme } from "./utils/dark-mode";
-
 interface iHandler {
     (config: any, key: string, value: string): string;
 }
 
 export const Color: iHandler = (config, key, value) => {
-    console.log(localStorage.getItem("shonaui-theme"));
+    // console.log(localStorage.getItem("shonaui-theme"));
 
     const colors =
         config && config.colors
@@ -13,7 +11,7 @@ export const Color: iHandler = (config, key, value) => {
                 ? config.colors[localStorage.getItem("shonaui-theme") === "dark" ? "dark" : "light"]
                 : config.colors["light"]
             : null;
-    console.log(colors);
+    // console.log(colors);
 
     if (colors && colors[value]) {
         return colors[value];

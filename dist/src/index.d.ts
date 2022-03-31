@@ -1,4 +1,4 @@
-export { toggleDarkTheme, isDarkTheme } from "./utils/dark-mode";
+export { toggleDarkTheme, setTheme } from "./utils/dark-mode";
 export declare const init: (config: any) => void;
 export declare const screenSize: {
     xs: boolean;

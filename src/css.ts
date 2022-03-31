@@ -146,6 +146,4 @@ export const cssNormalizeRules: string[] = [
     "template {display: none;}",
     /* Add the correct display in IE 10. */
     "[hidden] {display: none !important;}",
-    // transition smoothly from one theme to another instead of instantly jumping from light to dark theme.
-    "* { transition: background-color 0.6s ease, color 1s ease;}",
 ];
