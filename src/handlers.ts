@@ -2,14 +2,12 @@ interface iHandler {
     (config: any, key: string, value: string): string;
 }
 
-export const Color: iHandler = (config, key, value) => {
+export const Color = (config: any, key: string, value: string, dark: boolean): string => {
     // console.log(localStorage.getItem("shonaui-theme"));
 
     const colors =
         config && config.colors
-            ? config?.darkMode
-                ? config.colors[localStorage.getItem("shonaui-theme") === "dark" ? "dark" : "light"]
-                : config.colors["light"]
+            ? config.colors[localStorage.getItem("shonaui-theme") === "dark" ? "dark" : "light"]
             : null;
     // console.log(colors);
 
@@ -140,7 +138,52 @@ export const No = (value: string) => {
             return "overflow: clip;";
         case "decoration":
             return "text-decoration: none;";
+        case "box-shadow":
+            return "box-shadow: 0 0 #0000;";
+        case "drop-shadow":
+            return "filter: drop-shadow(0 0 #0000);";
         default:
             return null;
     }
+};
+
+function hexToRgbA(hex: string) {
+    let c: any;
+    if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
+        c = hex.substring(1).split("");
+        if (c.length == 3) {
+            c = [c[0], c[0], c[1], c[1], c[2], c[2]];
+        }
+        c = "0x" + c.join("");
+        return [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(",");
+    }
+    return null;
+}
+
+// TODO: handle color first with Color function before using it
+export const BoxShadow = (value: string) => {
+    const sizes: string[] = ["xs", "sm", "lg", "xl"];
+    let size: string | null = null;
+    let color: string | null = null;
+    let opacity: string | null = null;
+
+    const segments = value.split("-");
+
+    if (segments.length >= 1 && sizes.includes(segments[0])) {
+        size = segments[0];
+    }
+    if (segments.length >= 2) {
+        color = hexToRgbA(segments[1]);
+    }
+    if (segments.length === 3) {
+        opacity = segments[2];
+    }
+
+    if (segments.length === 0 || segments.length > 3) {
+        return null;
+    }
+
+    return `box-shadow: 0 4px 6px -1px rgb(${color ? color : "0 0 0"} , ${
+        opacity ? opacity : "0.1"
+    }), 0 2px 4px -2px rgb(${color ? color : "0 0 0"} , ${opacity ? opacity : "0.1"})`;
 };

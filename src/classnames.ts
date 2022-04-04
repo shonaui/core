@@ -340,6 +340,63 @@ const classnames = [
     // Tooltip on top
     // </button>
 
+    // .container{
+    // max-width: 960px;
+    // margin: 100px auto;
+    // padding: 10px;
+    //}
+
+    // https://github.com/tailwindlabs/tailwindcss-forms/blob/master/src/index.js
+    // https://github.com/tailwindlabs/tailwindcss-typography/blob/master/src/styles.js
+    // https://github.com/tailwindlabs/tailwindcss-typography/blob/master/src/index.js
+    // https://github.com/tailwindlabs/tailwindcss-aspect-ratio/blob/master/src/index.js
+    // https://github.com/tailwindlabs/tailwindcss-line-clamp/blob/master/src/index.js
+
+    // Form Styles can either be unstyled,simple,underline,solid => https://tailwindcss-forms.vercel.app/
+
+    {
+        aliases: ["placeholder-color", "pc"],
+        keys: ["color"],
+        handler: "color",
+    },
+    {
+        aliases: ["placeholder-size", "ps"],
+        keys: ["font-size"],
+        handler: "size",
+    },
+    {
+        aliases: ["placeholder-style"],
+        keys: ["font-style"],
+        handler: null,
+    },
+
+    // TEXT SELECTION
+    {
+        aliases: ["select-color"],
+        keys: ["color"],
+        handler: "color",
+    },
+    {
+        aliases: ["select-bg"],
+        keys: ["background-color"],
+        handler: "color",
+    },
+
+    // BOX SHADOWS
+    {
+        aliases: ["box-shadow"],
+        keys: ["box-shadow"],
+        handler: "box-shadow",
+        // value: "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+    },
+
+    // input cursor color
+    {
+        aliases: ["caret"],
+        keys: ["caret-color"],
+        handler: "color",
+    },
+
     {
         aliases: ["flex"],
         keys: ["display"],

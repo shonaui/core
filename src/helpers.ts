@@ -78,7 +78,7 @@ export const filterClass = (className: string) => {
             if (matches.length === segmentsSize) {
                 const filteredSegments = [...cssSegments];
                 identifier = filteredSegments.splice(0, matches.length).join("-");
-                value = filteredSegments.join("");
+                value = filteredSegments.join("-"); // double check this
             }
         });
     });

@@ -3,7 +3,7 @@ import { insertViewPortMetaTag, viewPortMetaTagExists } from "./helpers";
 // import { haha } from "./window";
 import { darkModeHandler } from "./utils/dark-mode";
 
-export { toggleDarkTheme, setTheme } from "./utils/dark-mode";
+import { toggleDarkTheme as toggleDarkMode, setTheme as changeTheme } from "./utils/dark-mode";
 
 import { getWindow, getDocument } from "./ssr";
 
@@ -17,11 +17,12 @@ const initializeLibrary = (config: any) => {
     darkModeHandler(config);
 
     let classList: any = [];
-    document.querySelectorAll("*[class]").forEach((e) => {
-        let classes: any = e.className.split(" ");
-        classes = typeof e.className.split(" ") === "object" ? e.className.split(" ") : [e.className.split(" ")];
-        classList = Array.from(new Set([...classList, ...classes])); // concatenate & remove duplicates
-    });
+    document.querySelectorAll("*[class]").length > 0 &&
+        document.querySelectorAll("*[class]").forEach((e) => {
+            let classes: any = e.className.split(" ");
+            classes = typeof e.className.split(" ") === "object" ? e.className.split(" ") : [e.className.split(" ")];
+            classList = Array.from(new Set([...classList, ...classes])); // concatenate & remove duplicates
+        });
     design(classList.join(" "), config);
     // console.log("init ran");
 };
@@ -30,6 +31,9 @@ var globalConfig = {};
 
 // for script tag
 export const init = (config: any) => {
+    // const stylesheet = document.querySelectorAll('[property="value"]');
+    // console.log(stylesheet);
+
     globalConfig = config;
     if (typeof window !== "undefined" || typeof self !== "undefined" || typeof document !== "undefined") {
         initializeLibrary(config);
@@ -61,16 +65,19 @@ export const screenSize = {
     sm: window.matchMedia("(min-width: 576px)").matches,
 };
 
-// let isMobileDevice = window.matchMedia("(max-width: 576px)").matches;
-// if (isMobileDevice) {
-//     // The viewport is less than 768 pixels wide
-//     //Conditional script here
-// } else {
-//     //The viewport is greater than 700 pixels wide
-//     alert("This is not a mobile device.");
-// }
+export function listenForChanges() {
+    const callback = function (mutationsList: any, observer: any) {
+        for (let mutation of mutationsList) {
+            if (mutation.type === "attributes" && mutation.attributeName === "class") {
+                // console.log("Something changed....");
+                initializeLibrary(globalConfig);
+            }
+        }
+    };
 
-// console.log(prefix);
+    const observer = new MutationObserver(callback);
+    observer.observe(document.body, { childList: true, subtree: true, attributes: true });
+}
 
 export const shonaui = {
     init: (config: any) => {
@@ -79,29 +86,22 @@ export const shonaui = {
 };
 
 if (typeof window !== "undefined" || typeof self !== "undefined" || typeof document !== "undefined") {
-    console.log("Hello World");
-
-    // initial call
-    initializeLibrary(globalConfig);
-
     window.addEventListener("DOMContentLoaded", (event: any) => {
-        const targetNode: any = document.body;
-        const config2: any = { childList: true, subtree: true, attributes: true };
-
-        const callback = function (mutationsList: any, observer: any) {
-            for (let mutation of mutationsList) {
-                if (mutation.type === "attributes" && mutation.attributeName === "class") {
-                    console.log("Something changed....");
-
-                    initializeLibrary(globalConfig);
-                }
-            }
-        };
-
-        const observer = new MutationObserver(callback);
-        observer.observe(targetNode, config2);
+        // initial call
+        initializeLibrary(globalConfig);
+        listenForChanges();
     });
 }
+
+// call init() to re-initialize the library on theme change for changes to reflect
+export const toggleDarkTheme = () => {
+    toggleDarkMode();
+    init(globalConfig);
+};
+export const setTheme = (theme: string) => {
+    changeTheme(theme);
+    init(globalConfig);
+};
 
 // you can set global styles akak custom styles like dark mode smooth transition
 const globalStyles = {};

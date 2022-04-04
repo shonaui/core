@@ -1,15 +1,3 @@
-// function setDarkMode(colorScheme: string) {
-//     let body: any = document.querySelector("body");
-
-//     if (colorScheme === "dark") {
-//         body.style.backgroundColor = "#1a1a1a";
-//         console.log("dark mode");
-//     } else {
-//         body.style.backgroundColor = "#f5f5f5";
-//         console.log("light mode");
-//     }
-// }
-
 const handleThemeChange = (theme: string) => {
     // remove current theme class
     if (document?.body?.classList !== undefined) {

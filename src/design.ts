@@ -42,6 +42,7 @@ import { cssResetRules, cssNormalizeRules } from "./css";
  * 
  * / 
  **/
+
 //  OR -----
 
 const mockSheet = () => {
@@ -77,16 +78,19 @@ if (typeof window !== "undefined") {
 // style.innerHTML = `#target {color: blueviolet;}`;
 // document.head.appendChild(style);
 
-export const design = (classes: string, config: any) => {
-    const cssRules: any = sheet.cssRules || sheet.rules;
+export const design = async (classes: string, config: any) => {
+    const cssRules: any = (await sheet.cssRules) || (await sheet.rules);
 
-    // console.log(cssRules);
+    // console.log(sheet?.cssRules);
 
-    // cssRules.forEach((rule: any) => {
-    //     console.log(rule);
+    // look for data-origin-shonaui attribute and clear its contents
 
-    //     // sheet?.deleteRule(rule, cssRules.length);
-    // });
+    // cssRules &&
+    //     cssRules.forEach((rule: any) => {
+    //         console.log(rule);
+
+    //         // sheet?.deleteRule(rule, cssRules.length);
+    //     });
 
     if (config?.cssreset === true) {
         cssResetRules.forEach((rule: string) => {
@@ -158,6 +162,21 @@ export const design = (classes: string, config: any) => {
         if (focus) {
             className.identifier = className.identifier.replace("focus:", "");
             chainedPseudo.push("focus");
+        }
+
+        const dark: boolean = className.identifier.includes("dark:");
+        if (dark) {
+            className.identifier = className.identifier.replace("dark:", "");
+        }
+
+        const placeholder: boolean = className.identifier.includes("placeholder");
+        if (placeholder) {
+            chainedPseudo.push(":placeholder");
+        }
+
+        const select: boolean = className.identifier.includes("select");
+        if (select) {
+            chainedPseudo.push(":selection");
         }
 
         // Extra small (xs)
@@ -242,10 +261,10 @@ export const design = (classes: string, config: any) => {
                 const matchedClassesSegments = matchedClasses.split(" ");
                 matchedClassesSegments.forEach((seg: string) => {
                     const { identifier: i, value: v } = filterClass(seg);
-                    cssRule += resolver(config, i, v, negative, important);
+                    cssRule += resolver(config, i, v, negative, important, dark);
                 });
             } else {
-                cssRule = resolver(config, identifier, value, negative, important);
+                cssRule = resolver(config, identifier, value, negative, important, dark);
             }
 
             let myArray: any = [];
@@ -354,6 +373,14 @@ export const design = (classes: string, config: any) => {
             //     sheet?.deleteRule(classObject.index);
             //     classObject.index = classObject.index - 1;
             // }
+            const isDarkMode = localStorage.getItem("shonaui-theme") === "dark";
+
+            // if (
+            //     (identifier !== "debug" && !duplicateClass.length) ||
+            //     (identifier === "debug" && !duplicateDebug.length) ||
+            //     (dark && isDarkMode) ||
+            //     !dark
+            // ) {
             const formattedRule = xs
                 ? `@media (max-width: 576px) { ${rule} }`
                 : sm
@@ -374,7 +401,9 @@ export const design = (classes: string, config: any) => {
             //   : md
             //   ? `@media only screen and (min-width: 768px) { ${rule} }`
             //   : rule;
-            sheet?.insertRule(formattedRule, classObject.index);
+            if ((dark && isDarkMode) || !dark) {
+                sheet?.insertRule(formattedRule, classObject.index);
+            }
             // }
 
             classList += (classList ? " " : "") + classObject.identifier;

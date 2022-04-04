@@ -45,14 +45,14 @@
         </style>
     </head>
     <body class="bg-bg">
-        <div class="group xs:bg-orange sm:bg-green md:!bg-pink lg:bg-brown">
+        <div class="group xs:bg-orange sm:bg-green md:!bg-pink lg:bg-brown dark:bg-#ccc">
             <h1 class="page-header xs:bg-green hover:tc-red tc-secondary cursor-pointer m-5% bg-primary">
                 Hello World
             </h1>
             <p class="description m-5% group-hover:tc-red ts-40 underline">para</p>
         </div>
         <div
-            class="flex justify-center items-center m-20 p-10 bw-5 bc-green bs-solid hover:[bg-primary tc-yellow bold bc-primary cursor-pointer]"
+            class="flex justify-center items-center m-20 p-10 bw-5 bc-green tc-black dark:tc-red bs-solid hover:[bg-primary tc-yellow bold bc-primary cursor-pointer]"
         >
             Hello
         </div>
@@ -63,6 +63,11 @@
         >
             Switch Theme
         </button>
+
+        <input type="text" placeholder="Hello World" class="p-10 placeholder-color-secondary box-shadow-sm-#0f0-0.2 no-border no-outline" />
+
+        <br/>
+        <h2 class="select-color-white select-bg-green">Hi There</h2>
 
 
         <div class="tumbler__wrapper">
@@ -208,6 +213,16 @@
                     // desktop: "1280px",
                     // // => @media (min-width: 1280px) { ... }
                 },
+                extend: [
+                    "colors",
+                    "shadows",
+                    "primitives",
+                    "typography",
+                    "nice", // take-the-wheel
+                    "debug",
+                    "forms"
+                ]
+                
             });
 
             document.getElementById("themeSwitcher").innerHTML = shonaui.isDarkTheme

@@ -1,1 +1,1 @@
-export declare const design: (classes: string, config: any) => string | undefined;
+export declare const design: (classes: string, config: any) => Promise<string | undefined>;
