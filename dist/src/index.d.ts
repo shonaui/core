@@ -9,3 +9,4 @@ export declare const shonaui: {
 };
 export declare const toggleDarkTheme: () => void;
 export declare const setTheme: (theme: string) => void;
+export declare const isDarkMode: boolean;

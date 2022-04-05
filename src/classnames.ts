@@ -5,6 +5,11 @@ const classnames = [
         handler: "color",
     },
     {
+        aliases: ["accent"],
+        keys: ["accent-color"],
+        handler: "color",
+    },
+    {
         aliases: ["text-size", "ts"],
         keys: ["font-size"],
         handler: "size",
@@ -155,6 +160,12 @@ const classnames = [
         keys: ["border-radius"],
         handler: "size",
         prefix: true,
+    },
+    // Color Scheme for Forms
+    {
+        aliases: ["scheme"],
+        keys: ["color-scheme"],
+        handler: null,
     },
 
     /**************************
@@ -345,6 +356,7 @@ const classnames = [
     // margin: 100px auto;
     // padding: 10px;
     //}
+    // https://tailwindcss.com/docs/container
 
     // https://github.com/tailwindlabs/tailwindcss-forms/blob/master/src/index.js
     // https://github.com/tailwindlabs/tailwindcss-typography/blob/master/src/styles.js
@@ -353,6 +365,35 @@ const classnames = [
     // https://github.com/tailwindlabs/tailwindcss-line-clamp/blob/master/src/index.js
 
     // Form Styles can either be unstyled,simple,underline,solid => https://tailwindcss-forms.vercel.app/
+
+    // GRADIENTS
+    // https://stackoverflow.com/questions/15071062/using-javascript-to-edit-css-gradient
+    // https://blog.idrisolubisi.com/how-to-create-beautiful-gradients-with-javascript
+    // https://css-tricks.com/css3-gradients/
+    // color generator for the docs = https://morioh.com/p/9427e6056c84
+
+    // Gradient cheatsheet
+    // https://gist.github.com/LeaVerou/9594012
+    // https://tailwindcss.com/docs/gradient-color-stops
+
+    // ANIMATIONS & TRANSITIONS
+    // https://learn.shayhowe.com/advanced-html-css/transitions-animations/
+    // https://www.joshwcomeau.com/animation/css-transitions/
+
+    // Look into: motion-safe & motion-reduce pseudo elements
+
+    // text-gradient-to-tr-from-#def-to-#000
+    // bg-gradient-to-r-from-#def-via-#000-to-#000
+    {
+        aliases: ["bg-gradient"],
+        keys: ["background-image"],
+        handler: "bg-gradient",
+    },
+    {
+        aliases: ["text-gradient"],
+        keys: ["background-image"],
+        handler: "text-gradient",
+    },
 
     {
         aliases: ["placeholder-color", "pc"],

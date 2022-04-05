@@ -1,4 +1,4 @@
-import { Color, Size, Justify, Items, Flex, No, BoxShadow } from "./handlers";
+import { Color, Size, Justify, Items, Flex, No, BoxShadow, BGGradient, TextGradient } from "./handlers";
 
 import classnames from "./classnames";
 
@@ -21,6 +21,10 @@ const resolveHandler = (
         ? `align-items: ${Items(value)}${important ? " !important" : ""};`
         : handler === "box-shadow"
         ? BoxShadow(value)
+        : handler === "bg-gradient"
+        ? BGGradient(value)
+        : handler === "text-gradient"
+        ? TextGradient(value)
         : handler === "no"
         ? No(value)
         : handler === "flex"

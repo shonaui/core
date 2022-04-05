@@ -11,34 +11,44 @@
                 transform: translateX(calc(100% - -10px));
             }
             .tumbler__wrapper {
-            display: flex;
-            margin-left: auto;
-            width: 50px;
-            height: 30px;
-            background-color: black;
-            border: #1d92b2;
-            border-radius: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 6px;
-            cursor: pointer;
-            position: relative;
+                display: flex;
+                margin-left: auto;
+                width: 50px;
+                height: 30px;
+                background-color: black;
+                border: #1d92b2;
+                border-radius: 30px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0 6px;
+                cursor: pointer;
+                position: relative;
             }
 
             .tumbler__wrapper svg {
-            width: 15px;
-            height: 15px;
+                width: 15px;
+                height: 15px;
             }
 
             .tumbler {
-            position: absolute;
-            height: 20px;
-            width: 20px;
-            border-radius: 50%;
-            background-color: #fff;
-            transition: transform 0.5s, background-color 0.5s;
-            will-change: transform;
+                position: absolute;
+                height: 20px;
+                width: 20px;
+                border-radius: 50%;
+                background-color: #fff;
+                transition: transform 0.5s, background-color 0.5s;
+                will-change: transform;
+            }
+
+            .grad { 
+                background-image: linear-gradient(to right, red , yellow); 
+            }
+
+           .container{
+                max-width: 960px;
+                margin: 100px auto;
+                padding: 10px;
             }
 
   
@@ -51,7 +61,7 @@
             </h1>
             <p class="description m-5% group-hover:tc-red ts-40 underline">para</p>
         </div>
-        <div
+        <div 
             class="flex justify-center items-center m-20 p-10 bw-5 bc-green tc-black dark:tc-red bs-solid hover:[bg-primary tc-yellow bold bc-primary cursor-pointer]"
         >
             Hello
@@ -64,11 +74,15 @@
             Switch Theme
         </button>
 
-        <input type="text" placeholder="Hello World" class="p-10 placeholder-color-secondary box-shadow-sm-#0f0-0.2 no-border no-outline" />
+        <input type="text" placeholder="Hello World" class="p-10 placeholder-color-secondary box-shadow-sm-#0f0-0.2 no-outline bs-solid bw-2 bc-red caret-red" />
 
         <br/>
-        <h2 class="select-color-white select-bg-green">Hi There</h2>
+        <h2 class="select-color-white select-bg-green tc-white dark:tc-green cursor-pointer hover:[tc-pink underline] mb-100 bs-solid bw-2 bc-green bg-access padding-30 w-100px radius-10">Hi There</h2>
 
+        <div class="bg-gradient-to-r-from-red-via-white-to-yellow p-20">dhjhdj</div>
+        <h1 class="text-gradient-to-r-from-red-to-yellow ts-150">hhghh j h</h1>
+        <div class="bg-gradient-to-r-from-#06b6d4-to-#3b82f6 hover:bg-gradient-to-r-from-green-to-pink ts-150 h-100 w-800 radius-10 container"></div>
+        <h1 class="text-gradient-to-l-from-brown-via-blue-to-yellow ts-150">Hello World</h1>
 
         <div class="tumbler__wrapper">
         <div class="tumbler"></div>
@@ -158,6 +172,7 @@
                         graytext: "#959CAF",
                         orange: "#FD9E31",
                         text: "pink",
+                        access: "#def"
                     },
                     dark: {
                         bg: "#252525",
@@ -166,6 +181,7 @@
                         graytext: "#959CAF",
                         orange: "#FD9E31",
                         text: "#fff",
+                        access: "#def"
                     },
                 },
                 sizes: {

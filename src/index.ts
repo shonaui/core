@@ -14,26 +14,22 @@ const document = getDocument();
 const initializeLibrary = (config: any) => {
     if (!viewPortMetaTagExists()) insertViewPortMetaTag();
 
-    darkModeHandler(config);
-
     let classList: any = [];
-    document.querySelectorAll("*[class]").length > 0 &&
-        document.querySelectorAll("*[class]").forEach((e) => {
-            let classes: any = e.className.split(" ");
-            classes = typeof e.className.split(" ") === "object" ? e.className.split(" ") : [e.className.split(" ")];
-            classList = Array.from(new Set([...classList, ...classes])); // concatenate & remove duplicates
-        });
+    const allClasses = document.querySelectorAll("*[class]");
+
+    allClasses.forEach((e) => {
+        let classes: any = e.classList;
+        classList = Array.from(new Set([...classList, ...classes])); // concatenate & remove duplicates
+    });
     design(classList.join(" "), config);
-    // console.log("init ran");
+
+    darkModeHandler(config);
 };
 
 var globalConfig = {};
 
 // for script tag
 export const init = (config: any) => {
-    // const stylesheet = document.querySelectorAll('[property="value"]');
-    // console.log(stylesheet);
-
     globalConfig = config;
     if (typeof window !== "undefined" || typeof self !== "undefined" || typeof document !== "undefined") {
         initializeLibrary(config);
@@ -68,17 +64,20 @@ export const screenSize = {
 export function listenForChanges() {
     const callback = function (mutationsList: any, observer: any) {
         for (let mutation of mutationsList) {
+            console.log(mutation.type);
+
             if (mutation.type === "attributes" && mutation.attributeName === "class") {
-                // console.log("Something changed....");
                 initializeLibrary(globalConfig);
+                // stop observing
+                // observer.disconnect();
             }
         }
     };
 
     const observer = new MutationObserver(callback);
-    observer.observe(document.body, { childList: true, subtree: true, attributes: true });
+    observer.observe(document.body, { childList: true, subtree: true, attributes: true, characterData: true });
 }
-
+// npm import support
 export const shonaui = {
     init: (config: any) => {
         init(config);
@@ -107,3 +106,5 @@ export const setTheme = (theme: string) => {
 const globalStyles = {};
 // transition smoothly from one theme to another instead of instantly jumping from light to dark theme.
 // "* { transition: background-color 0.6s ease, color 1s ease;}",
+
+export const isDarkMode = localStorage.getItem("shonaui-theme") === "dark";

@@ -142,6 +142,8 @@ export const No = (value: string) => {
             return "box-shadow: 0 0 #0000;";
         case "drop-shadow":
             return "filter: drop-shadow(0 0 #0000);";
+        case "appearance":
+            return "appearance: none;";
         default:
             return null;
     }
@@ -186,4 +188,60 @@ export const BoxShadow = (value: string) => {
     return `box-shadow: 0 4px 6px -1px rgb(${color ? color : "0 0 0"} , ${
         opacity ? opacity : "0.1"
     }), 0 2px 4px -2px rgb(${color ? color : "0 0 0"} , ${opacity ? opacity : "0.1"})`;
+};
+
+const gradientDirection = (dir: string) => {
+    return dir === "t"
+        ? "top"
+        : dir === "tr"
+        ? "top right"
+        : dir === "r"
+        ? "right"
+        : dir === "br"
+        ? "bottom right"
+        : dir === "b"
+        ? "bottom"
+        : dir === "bl"
+        ? "bottom left"
+        : dir === "l"
+        ? "left"
+        : dir === "tl"
+        ? "top left"
+        : null;
+};
+
+export const BGGradient = (value: string) => {
+    let direction: string | null = null;
+    let from: string | null = null;
+    let via: string | null = null;
+    let to: string | null = null;
+
+    const segments = value.split("-");
+
+    if (segments.length < 6 || segments.length > 8) {
+        return null;
+    }
+    direction = segments[1];
+    from = segments[3];
+    if (segments.length === 8) {
+        via = segments[5];
+        to = segments[7];
+    } else {
+        to = segments[5];
+    }
+
+    // console.log(direction, from, via, to);
+
+    // return `background-image: linear-gradient(to ${gradientDirection(direction)}, ${from ? from + "," : ""} ${
+    //     to ? to : ""
+    // });`;
+    return `background-image: linear-gradient(to ${gradientDirection(direction)}, ${from ? from + "," : ""} ${
+        via ? via + "," : ""
+    } ${to ? to : ""}); `;
+};
+
+export const TextGradient = (value: string) => {
+    return `${BGGradient(
+        value,
+    )}-webkit-background-clip:text;-webkit-text-fill-color:transparent;-webkit-box-decoration-break:clone;`;
 };
